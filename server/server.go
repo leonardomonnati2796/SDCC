@@ -34,7 +34,11 @@ func main() {
 	calcolatrice := new(Calcolatrice)
 
 	// Registra il server RPC
-	rpc.Register(calcolatrice)
+	server := rpc.NewServer()
+	err := server.Register(calcolatrice)
+	if err != nil {
+		log.Fatal("Errore nella registrazione del servizio:", err)
+	}
 
 	// Crea un listener sulla porta 1234
 	listener, err := net.Listen("tcp", ":1234")
